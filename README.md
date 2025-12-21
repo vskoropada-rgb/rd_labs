@@ -7,3 +7,4 @@
 - lab-04-virtualbox
 - lab-05-linux
 - lab-06-bash
+- lab-08-network-technologies
