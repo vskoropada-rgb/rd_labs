@@ -1,20 +1,9 @@
-# Bash Automation Lab
+# RD Labs
 
-## Користувач
-sc
+Репозиторій з лабораторними роботами курсу DevOps.
 
-## Базовий каталог
-/opt
-
-## Вміст репозиторію
-- Bash-скрипти для автоматизації задач
-- Налаштування cron
-- systemd service та timer
-- Конфігурація logrotate
-- Звіт по виконаній роботі
-
-## Структура проєкту
-- `scripts/` — bash-скрипти
-- `systemd/` — systemd service та timer
-- `logrotate/` — конфігурації logrotate
-- `report/` — звіт по лабораторній роботі
+## Лабораторні роботи
+- lab-03-jenkins
+- lab-04-virtualbox
+- lab-05-linux
+- lab-06-bash
