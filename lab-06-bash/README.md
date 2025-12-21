@@ -17,4 +17,3 @@ sc
 - `scripts/` — bash-скрипти
 - `systemd/` — systemd service та timer
 - `logrotate/` — конфігурації logrotate
-- `report/` — звіт по лабораторній роботі
