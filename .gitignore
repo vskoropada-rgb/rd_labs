@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+
+# Archives
+*.tar
+*.tar.gz
+
+# IDE
+.vscode/
+.idea/
