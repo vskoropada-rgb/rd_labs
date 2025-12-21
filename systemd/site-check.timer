@@ -1,0 +1,9 @@
+[Unit]
+Description=Запуск перевірки сайту кожні 5 хвилин
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=5min
+
+[Install]
+WantedBy=timers.target

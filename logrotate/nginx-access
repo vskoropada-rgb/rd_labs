@@ -1,0 +1,10 @@
+/var/log/nginx/access.log {
+    daily
+    rotate 7
+    compress
+    missingok
+    notifempty
+    postrotate
+        systemctl reload nginx > /dev/null
+    endscript
+}

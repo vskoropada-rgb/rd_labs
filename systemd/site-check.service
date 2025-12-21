@@ -1,0 +1,6 @@
+[Unit]
+Description=Перевірка доступності веб-сайту
+
+[Service]
+User=sc
+ExecStart=/opt/scripts/check_site.sh
