@@ -11,7 +11,6 @@ sc
 - Налаштування cron
 - systemd service та timer
 - Конфігурація logrotate
-- Звіт по виконаній роботі
 
 ## Структура проєкту
 - `scripts/` — bash-скрипти
