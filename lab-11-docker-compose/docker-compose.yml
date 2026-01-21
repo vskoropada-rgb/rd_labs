@@ -1,19 +1,18 @@
-version: "3.9"
-
 services:
   web:
     image: nginx:latest
-    ports:
-      - "8080:80"
     volumes:
-      - ./html:/usr/share/nginx/html:ro
+      - ./web-data:/usr/share/nginx/html:ro
     depends_on:
       - db
+      - redis
     networks:
-      - app-network
-
+      - appnet
+    ports:
+      - "8080:80"
   db:
     image: postgres:15
+    container_name: db
     environment:
       POSTGRES_DB: mydb
       POSTGRES_USER: myuser
@@ -21,10 +20,16 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
-      - app-network
+      - appnet
+
+  redis:
+    image: redis:7
+    container_name: redis
+    networks:
+      - appnet
 
 volumes:
   db-data:
 
 networks:
-  app-network:
+  appnet:
