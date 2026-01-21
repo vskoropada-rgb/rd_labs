@@ -1,6 +1,7 @@
-LAB №13. Advanced K8s
+# LAB №13. Advanced K8s
 
-Структура проєкту
+## Структура проєкту
+
 
 lab-13-Advanced/
 ├── redis-service.yaml
