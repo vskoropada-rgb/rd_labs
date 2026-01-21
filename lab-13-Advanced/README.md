@@ -2,7 +2,7 @@
 
 ## Структура проєкту
 
-
+```text
 lab-13-Advanced/
 ├── redis-service.yaml
 ├── redis-statefulset.yaml
