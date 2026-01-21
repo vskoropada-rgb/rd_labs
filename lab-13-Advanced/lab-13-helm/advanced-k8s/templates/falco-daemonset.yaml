@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: falco
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: falco
+  template:
+    metadata:
+      labels:
+        app: falco
+    spec:
+      hostPID: true
+      containers:
+        - name: falco
+          image: {{ .Values.falco.image }}
+          securityContext:
+            privileged: true
+          resources:
+            requests:
+              cpu: {{ .Values.falco.resources.requests.cpu }}
+              memory: {{ .Values.falco.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.falco.resources.limits.cpu }}
+              memory: {{ .Values.falco.resources.limits.memory }}
+          volumeMounts:
+            - name: proc
+              mountPath: /host/proc
+              readOnly: true
+            - name: lib-modules
+              mountPath: /host/lib/modules
+              readOnly: true
+      volumes:
+        - name: proc
+          hostPath:
+            path: /proc
+        - name: lib-modules
+          hostPath:
+            path: /lib/modules
