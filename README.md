@@ -13,3 +13,4 @@
 - [Lab 13: Advanced Kubernetes](lab-13-Advanced/README.md)  
 - [Lab 14: SQL](lab-14-sql/README.md)
 - [Lab 15: MongoDB](lab-15-MongoDB/README.md)
+- [Lab 16: Terraform](lab-16-terraform/README.md)
