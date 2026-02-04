@@ -10,27 +10,32 @@
 
 ## Структура проєкту
 
+
 lab-16-terraform/
-├── main.tf                # Основна конфігурація: підключення та використання модулів
-├── providers.tf           # Провайдери та вимоги до версій Terraform
+├── main.tf                # Основна конфігурація: збирання інфраструктури з модулів
+├── providers.tf           # Провайдери (AWS) та вимоги до версії Terraform
 ├── variables.tf           # Глобальні змінні проєкту
-├── outputs.tf             # Публічні outputs інфраструктури
-├── terraform.tfvars       # Значення змінних (середовище)
-├── README.md              # Опис лабораторної
-├── screenshots/           # Скриншоти перевірок (init/validate/plan)
-└── modules/               # Повторно використовувані Terraform-модулі
-    ├── vpc/               # Модуль VPC
-    │   ├── main.tf        # Створення VPC
-    │   ├── variables.tf   # Вхідні параметри модуля
-    │   └── outputs.tf     # Вихідні значення (VPC ID)
-    ├── subnet/            # Модуль підмереж
-    │   ├── main.tf        # Public / Private subnet
-    │   ├── variables.tf
-    │   └── outputs.tf
-    └── ec2/               # Модуль EC2
-        ├── main.tf        # EC2 instance
-        ├── variables.tf
-        └── outputs.tf
+├── outputs.tf             # Публічні outputs всієї інфраструктури
+├── README.md              # Опис лабораторної роботи
+├── screenshots/           # Скриншоти перевірок (init / validate / plan)
+│
+├── modules/               # Повторно використовувані Terraform-модулі
+│   ├── vpc/
+│   │   ├── main.tf        # Створення VPC
+│   │   ├── variables.tf  # Вхідні параметри модуля VPC
+│   │   └── outputs.tf    # Вихідні значення (VPC ID, CIDR)
+│   │
+│   ├── subnet/
+│   │   ├── main.tf        # Public / Private subnet
+│   │   ├── variables.tf
+│   │   └── outputs.tf
+│   │
+│   └── ec2/
+│       ├── main.tf        # EC2 instance
+│       ├── variables.tf
+│       └── outputs.tf
+
+
 
 
 
