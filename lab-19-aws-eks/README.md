@@ -66,6 +66,7 @@ kubectl delete -f deployment.yaml
 
 ## 7 Результат
 
+```text
 - Створено EKS кластер
 - Розгорнуто nginx з LoadBalancer
 - Створено PVC (EBS)
