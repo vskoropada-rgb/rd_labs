@@ -15,3 +15,4 @@
 - [Lab 15: MongoDB](lab-15-MongoDB/README.md)
 - [Lab 16: Terraform](lab-16-terraform/README.md)
 - [Lab 18: AWS Basics](lab-18-aws-basics/README.md)
+- [Lab 19: AWS EKS](lab-19-aws-eks/README.md)
