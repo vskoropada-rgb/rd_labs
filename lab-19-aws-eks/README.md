@@ -53,22 +53,25 @@ kubectl get pods -n dev
 
 ---
 
-## 6 Очистка ресурсів
+## 6 Очищення ресурсів
 
 ```bash
-kubectl delete -f busybox.yaml 
-kubectl delete -f job.yaml 
-kubectl delete -f pvc.yaml 
-kubectl delete -f service.yaml 
-kubectl delete -f deployment.yaml 
+kubectl delete -f busybox.yaml
+kubectl delete -f job.yaml
+kubectl delete -f pvc.yaml
+kubectl delete -f service.yaml
+kubectl delete -f deployment.yaml
+```
 
 ---
 
 ## 7 Результат
 
-```text
-- Створено EKS кластер
-- Розгорнуто nginx з LoadBalancer
-- Створено PVC (EBS)
-- Виконано Job
-- Створено namespace dev з 5 репліками busybox
+- Створено кластер AWS EKS  
+- Налаштовано доступ через kubectl  
+- Розгорнуто nginx з Service типу LoadBalancer  
+- Створено PersistentVolumeClaim (EBS)  
+- Виконано Kubernetes Job  
+- Створено namespace dev з 5 репліками busybox  
+- Перевірено роботу Pod та Service  
+- Усі ресурси успішно очищено  
