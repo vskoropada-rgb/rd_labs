@@ -2,7 +2,7 @@
 
 ---
 
-## 1️ Перевірка підключення до кластера
+## 1 Перевірка підключення до кластера
 
 kubectl get nodes
 
@@ -55,6 +55,7 @@ kubectl get pods -n dev
 
 ## 6 Очистка ресурсів
 
+```bash
 kubectl delete -f busybox.yaml 
 kubectl delete -f job.yaml 
 kubectl delete -f pvc.yaml 
