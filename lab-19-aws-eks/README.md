@@ -2,13 +2,13 @@
 
 ---
 
-## 1️ Перевірка підключення до кластера
+## 1 Перевірка підключення до кластера
 
 kubectl get nodes
 
 ---
 
-## 2️ Розгортання nginx Deployment
+## 2 Розгортання nginx Deployment
 
 kubectl apply -f deployment.yaml 
 kubectl apply -f service.yaml 
@@ -22,7 +22,7 @@ kubectl get svc
 
 ---
 
-## 3️ Створення PVC (EBS)
+## 3 Створення PVC (EBS)
 
 kubectl apply -f pvc.yaml 
 
@@ -32,7 +32,7 @@ kubectl get pvc
 
 ---
 
-## 4️ Запуск Job
+## 4 Запуск Job
 
 kubectl apply -f job.yaml 
 
@@ -43,7 +43,7 @@ kubectl logs job/eks-job
 
 ---
 
-## 5️ Робота з namespace
+## 5 Робота з namespace
 
 kubectl apply -f busybox.yaml 
 
@@ -53,8 +53,9 @@ kubectl get pods -n dev
 
 ---
 
-## 6️ Очистка ресурсів
+## 6 Очистка ресурсів
 
+```bash
 kubectl delete -f busybox.yaml 
 kubectl delete -f job.yaml 
 kubectl delete -f pvc.yaml 
@@ -63,7 +64,7 @@ kubectl delete -f deployment.yaml
 
 ---
 
-##  Результат
+## 7 Результат
 
 - Створено EKS кластер
 - Розгорнуто nginx з LoadBalancer
