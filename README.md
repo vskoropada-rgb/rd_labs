@@ -16,3 +16,4 @@
 - [Lab 16: Terraform](lab-16-terraform/README.md)
 - [Lab 18: AWS Basics](lab-18-aws-basics/README.md)
 - [Lab 19: AWS EKS](lab-19-aws-eks/README.md)
+- [Lab 22 – Advanced Ansible](lab-22-ansible-advanced)
