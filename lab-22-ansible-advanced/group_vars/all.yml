@@ -1,0 +1,7 @@
+ansible_user: ubuntu
+ansible_become: true
+ansible_become_method: sudo
+
+ssh_public_key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+site_title: "Ansible Nginx Server"
+site_message: "Deployed with Ansible"

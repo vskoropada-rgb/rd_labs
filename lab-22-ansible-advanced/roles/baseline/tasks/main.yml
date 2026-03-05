@@ -1,0 +1,14 @@
+- name: Install base packages
+  apt:
+    name:
+      - vim
+      - git
+      - mc
+      - ufw
+    state: present
+    update_cache: yes
+
+- name: Add SSH key
+  authorized_key:
+    user: ubuntu
+    key: "{{ ssh_public_key }}"
