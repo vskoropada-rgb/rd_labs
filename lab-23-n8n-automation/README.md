@@ -1,12 +1,12 @@
-# Lab 23 — Автоматизація обробки заявок (n8n)
+# Lab 23 — Автоматизація workflow з n8n
 
 ## Мета
 
-Побудувати workflow автоматизації, який:
+Створити автоматизований workflow, який:
 
 - отримує відповіді з Google Forms
 - обробляє дані
-- надсилає повідомлення в Telegram
+- надсилає повідомлення у Telegram
 
 ---
 
@@ -16,81 +16,100 @@ Google Form → Google Sheets → n8n → Telegram Bot
 
 ---
 
-## Крок 1 — Розгортання n8n
+## Розгортання n8n
 
-n8n розгорнуто локально через Docker Compose.
-
-Команда запуску:
+n8n розгорнуто локально за допомогою Docker Compose.
 docker compose up -d
 
-Інтерфейс доступний:
-http://localhost:5678
+Інтерфейс доступний: http://localhost:5678
 
 ---
 
-## Крок 2 — Google Form
+## Google Form
 
 Створено форму з такими полями:
 
 - Ім’я
 - Email
 - Тип запиту
-- Опис проблеми
+- Опис проблеми / коментар
 - Пріоритет (Low / Medium / High)
 
 Відповіді автоматично зберігаються у Google Sheets.
 
-![Form](form.png)
-
 ---
 
-## Крок 3 — Telegram Bot
-
-Створено Telegram-бот через **BotFather**.
-
-Отримано:
-
-- Bot Token
-- chat_id
-
-Бот використовується для надсилання повідомлень про нові заявки.
-
----
-
-## Крок 4 — n8n Workflow
+## Workflow
 
 Workflow складається з трьох нод:
 
 Google Sheets Trigger
 ↓
-Set (обробка даних)
+Edit Fields (обробка даних)
 ↓
 Telegram (відправка повідомлення)
-
-
-Trigger спрацьовує при появі нового рядка в Google Sheets.
 
 ![Workflow](workflow.png)
 
 ---
 
-## Приклад повідомлення
+## Google Sheets Trigger
+
+Trigger відслідковує появу нового рядка у таблиці відповідей Google Forms.
+
+![Trigger](google-sheets-trigger.png)
+
+---
+
+## Обробка даних
+
+Node **Edit Fields (Set)** формує структуру даних із відповіді форми.
+
+![Edit Fields](edit-fields-node.png)
+
+---
+
+## Telegram інтеграція
+
+Node **Telegram → Send Message** надсилає повідомлення у чат.
+
+Формат повідомлення:
 🚨 New Infrastructure Request
 
+Name: {{ $json.name }}
+Email: {{ $json.email }}
+Type: {{ $json.type }}
+Priority: {{ $json.priority }}
+
+Description: {{ $json.description }}
+
+![Telegram Node](telegram-node.png)
+
+---
+
+## Retry механізм
+
+Для Telegram node налаштовано повторну спробу у випадку помилки API:
+
+- Max tries: 3
+- Wait between tries: 2000 ms
+
+![Retry Settings](telegram-retry-settings.png)
+
+---
+
+## Приклад повідомлення
+
+При створенні нової заявки у Telegram надсилається повідомлення:
+
+🚨 New Infrastructure Request
 Name: user-test
 Email: 113@loc
 Type: Network
 Priority: High
 Description: 241231223
 
-![Telegram](telegram.png)
+![Telegram Message](telegram-message.png)
 
 ---
 
-## Результат
-
-Workflow автоматично:
-
-1. отримує заявки з Google Forms
-2. обробляє дані
-3. надсилає повідомлення в Telegram
