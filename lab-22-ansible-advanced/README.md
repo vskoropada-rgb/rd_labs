@@ -1,41 +1,48 @@
-Lab 22 – Advanced Ansible
+# Lab 22 – Advanced Ansible
 
--⸻
-
-Архітектура
+## Архітектура
 
 Ansible → AWS EC2 → Ubuntu Server → Nginx
 
 Уся конфігурація сервера виконується автоматично за допомогою ролей Ansible.
 
 ⸻
-
-Структура проєкту
-
+```text
 lab-22-ansible-advanced
-
+│
 ├── ansible.cfg
 ├── README.md
+│
 ├── inventory
 │   └── aws_ec2.yml
+│
 ├── group_vars
 │   └── all.yml
+│
 ├── playbooks
 │   ├── baseline.yml
 │   ├── firewall.yml
 │   └── nginx.yml
+│
 └── roles
-├── baseline
-│   ├── defaults
-│   └── tasks
-├── firewall 
-│   └── tasks
-└── nginx
-    ├── defaults  
-    ├── tasks  
-    └── templates  
---
-Ролі
+    ├── baseline
+    │   ├── defaults
+    │   │   └── main.yml
+    │   └── tasks
+    │       └── main.yml
+    │
+    ├── firewall
+    │   └── tasks
+    │       └── main.yml
+    │
+    └── nginx
+        ├── defaults
+        │   └── main.yml
+        ├── tasks
+        │   └── main.yml
+        └── templates
+            └── index.html.j2
+## Ролі
 
 baseline
 
@@ -46,63 +53,42 @@ baseline
 	•	mc
 	•	ufw
 	•	додає SSH ключ для доступу
---
-firewall
 
+## firewall
 Налаштовує firewall UFW:
-	•	дозволяє доступ до SSH (22)
-	•	дозволяє доступ до HTTP (80)
-	•	вмикає firewall
---
-nginx
+	•	дозволяє SSH (порт 22)
+	•	дозволяє HTTP (порт 80)
+	•	активує firewall
 
+## nginx
 Встановлює та налаштовує веб-сервер Nginx:
 	•	встановлює nginx
-	•	копіює веб-сторінку з шаблону
-	•	запускає та додає сервіс nginx в автозапуск
---
-Шаблони
+	•	розгортає index.html з шаблону
+	•	запускає та додає nginx в автозапуск
 
-Файл шаблону:
-
+## Шаблони
+```text
 roles/nginx/templates/index.html.j2
-
-У шаблоні використовуються змінні:
-
+Використовуються змінні:
 site_title
 site_message
---
-Змінні
 
+## Змінні
 Змінні визначені у файлі:
-
 group_vars/all.yml
+site_title: "Ansible Nginx Server"
+site_message: "Deployed with Ansible"
 
-Приклад:
-
-site_title: “Ansible Nginx Server”
-site_message: “Deployed with Ansible”
---
+## Запуск playbook
 Базове налаштування сервера:
-
 ansible-playbook playbooks/baseline.yml
-
 Налаштування firewall:
-
 ansible-playbook playbooks/firewall.yml
-
 Розгортання Nginx:
-
 ansible-playbook playbooks/nginx.yml
---
 
-Після виконання playbook сервер запускає веб-сайт через Nginx.
-
-Сайт доступний за адресою:
-
+## Результат
 http://18.184.5.255/
-
-Приклад сторінки:
 
 Ansible Nginx Server
 Deployed with Ansible
