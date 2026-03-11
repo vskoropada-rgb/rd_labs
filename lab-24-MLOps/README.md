@@ -1,21 +1,41 @@
- №24 — MLOps
+# №24 — MLOps  
+## AI Customer Support Service
 
-## Архітектура рішення
+Простий AI-сервіс підтримки користувачів, який відповідає на запитання через API.
 
-Client
-   │
-   ▼
-FastAPI AI Service
-   │
-   ├── SaaS LLM
-   │      └── Gemini API
-   │
-   └── Self-hosted LLM
-          └── Ollama
-               └── tinyllama
+Сервіс підтримує дві архітектури роботи з LLM:
 
-## Структура проєкту
-lab-24-MLOps
+- **SaaS LLM** — через Gemini API  
+- **Self-hosted LLM** — локальна модель через Ollama  
+
+API реалізовано на **FastAPI**, сервіс контейнеризовано через **Docker**.
+
+---
+
+# Архітектура рішення
+
+```mermaid
+graph TD
+
+Client --> FastAPI
+FastAPI -->|SaaS mode| GeminiAPI
+FastAPI -->|Local mode| Ollama
+
+Ollama --> TinyLlama
+
+GeminiAPI["Gemini API (SaaS LLM)"]
+Ollama["Ollama Server"]
+TinyLlama["tinyllama model"]
+FastAPI["FastAPI AI Service"]
+Client["Client / API request"]
+```
+
+---
+
+# Структура проєкту
+
+```
+lab-24-mlops
 │
 ├── app
 │   ├── main.py
@@ -25,66 +45,123 @@ lab-24-MLOps
 ├── Dockerfile
 ├── requirements.txt
 └── README.md
+```
 
-## API Endpoint
+---
 
-POST /ask
+# API Endpoint
 
-Endpoint дозволяє користувачу поставити запитання AI-сервісу.
+## POST /ask
 
-Приклад запиту
+Endpoint дозволяє поставити запитання AI-сервісу.
 
-''text	
+### Request
+
+```json
 {
   "question": "How do I reset my password?"
 }
+```
 
-Query параметр
-mode=saas   (Gemini API)
-mode=local  (Ollama)
+### Query параметр
 
+```
+mode=saas   → Gemini API
+mode=local  → Ollama
+```
 
-Приклад виклику
-POST /ask?mode=local
+### Response
 
-Приклад відповіді
+```json
 {
   "answer": "To reset your password..."
 }
-## Встановлення Ollama
+```
 
+---
+
+# Встановлення Ollama
+
+Встановлення Ollama:
+
+```
 curl -fsSL https://ollama.com/install.sh | sh
+```
 
-## Завантаження локальної моделі
+---
+
+# Завантаження моделі
+
 Для лабораторної використовується легка модель:
+
+```
 ollama pull tinyllama
+```
 
-Перевірка моделі: ollama run tinyllama
+Перевірка:
 
-## Запуск FastAPI локально
-Створення віртуального середовища:
+```
+ollama run tinyllama
+```
+
+---
+
+# Запуск сервісу локально
+
+Створити virtual environment:
+
+```
 python3 -m venv venv
 source venv/bin/activate
-Встановлення залежностей: pip install -r requirements.txt
+```
 
-Запуск API:
+Встановити залежності:
+
+```
+pip install -r requirements.txt
+```
+
+Запустити API:
+
+```
 uvicorn app.main:app --host 0.0.0.0 --port 8000
+```
 
-## Запуск через Docker
+Swagger UI:
 
-Побудова контейнера
+```
+http://localhost:8000/docs
+```
+
+---
+
+# Запуск через Docker
+
+## Побудова контейнера
+
+```
 docker build -t ai-support-bot .
+```
 
-Запуск контейнера
+---
+
+## Запуск контейнера
+
+```
 docker run --network host \
--e GOOGLE_API_KEY=*******_API_KEY \
+-e GOOGLE_API_KEY=********_API_KEY \
 ai-support-bot
+```
 
-## Тестування API
+---
 
-Приклад запиту через curl:
+# Тестування API
 
+```
 curl -X POST "http://localhost:8000/ask?mode=local" \
 -H "Content-Type: application/json" \
 -d '{"question":"How do I reset my password?"}'
+```
+
+---
 
