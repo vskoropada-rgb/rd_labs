@@ -4,6 +4,7 @@ import Services from "@/components/Services";
 import Stats from "@/components/Stats";
 import WhyUs from "@/components/WhyUs";
 import Portfolio from "@/components/Portfolio";
+import FacadeProcess from "@/components/FacadeProcess";
 import Process from "@/components/Process";
 import Testimonials from "@/components/Testimonials";
 import ContactForm from "@/components/ContactForm";
@@ -18,6 +19,7 @@ export default function Home() {
       <Stats />
       <WhyUs />
       <Portfolio />
+      <FacadeProcess />
       <Process />
       <Testimonials />
       <ContactForm />

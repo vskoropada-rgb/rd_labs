@@ -2,26 +2,29 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
+import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 
-const categories = ['Всі роботи', 'Будинки', 'ОСББ', 'Комерційні']
+const categories = ['Всі роботи', 'Приватні будинки', 'ЖК та ОСББ', 'Комерційні']
 
 const projects = [
   {
     id: 1,
     title: 'Котедж у Брюховичах',
-    type: 'Будинки',
+    type: 'Приватні будинки',
     area: '380 м²',
     material: 'Мінвата 150 мм',
-    hue: '#1C2016',
+    photo: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=800&q=80',
+    alt: 'Приватний будинок після утеплення фасаду',
   },
   {
     id: 2,
-    title: 'ОСББ вул. Шевченка',
-    type: 'ОСББ',
-    area: '2 400 м²',
+    title: 'ЖК на вул. Шевченка',
+    type: 'ЖК та ОСББ',
+    area: '4 800 м²',
     material: 'EPS 100 мм',
-    hue: '#16181C',
+    photo: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80',
+    alt: 'Утеплення фасаду житлового комплексу',
   },
   {
     id: 3,
@@ -29,23 +32,26 @@ const projects = [
     type: 'Комерційні',
     area: '1 200 м²',
     material: 'Мінвата 100 мм',
-    hue: '#1C1616',
+    photo: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=800&q=80',
+    alt: 'Фасадні роботи на офісному центрі',
   },
   {
     id: 4,
     title: 'Таунхаус у Сихові',
-    type: 'Будинки',
+    type: 'Приватні будинки',
     area: '240 м²',
     material: 'EPS 80 мм',
-    hue: '#161C1C',
+    photo: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80',
+    alt: 'Утеплення таунхаусу — фасадні роботи',
   },
   {
     id: 5,
-    title: 'Житловий комплекс',
-    type: 'ОСББ',
-    area: '3 600 м²',
+    title: 'Багатоквартирний ЖК',
+    type: 'ЖК та ОСББ',
+    area: '6 200 м²',
     material: 'Мінвата 120 мм',
-    hue: '#1C1C16',
+    photo: 'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?auto=format&fit=crop&w=800&q=80',
+    alt: 'Масштабне утеплення фасаду великого ЖК',
   },
   {
     id: 6,
@@ -53,7 +59,8 @@ const projects = [
     type: 'Комерційні',
     area: '800 м²',
     material: 'EPS 100 мм',
-    hue: '#16161C',
+    photo: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80',
+    alt: 'Фасадні роботи на торговому центрі',
   },
 ]
 
@@ -79,7 +86,7 @@ export default function Portfolio() {
           <div className="w-14 h-0.5 bg-[#C9A84C] mt-6" />
         </motion.div>
 
-        {/* Filter tabs */}
+        {/* Filter */}
         <div className="flex flex-wrap gap-2.5 mb-10">
           {categories.map((cat) => (
             <button
@@ -109,34 +116,39 @@ export default function Portfolio() {
             {filtered.map((project, i) => (
               <motion.div
                 key={project.id}
-                initial={{ opacity: 0, scale: 0.97 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: i * 0.07 }}
-                className="group relative aspect-[4/3] rounded-sm overflow-hidden cursor-pointer"
-                style={{ backgroundColor: project.hue }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: i * 0.07 }}
+                className="group relative aspect-[4/3] rounded-sm overflow-hidden cursor-pointer bg-[#111]"
               >
-                {/* Placeholder */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <div className="w-14 h-14 border border-white/8 rounded-full flex items-center justify-center mb-2">
-                    <span className="text-white/15 text-xl font-bold">{project.id}</span>
-                  </div>
-                  <span className="text-white/10 text-xs">Фото проєкту</span>
-                </div>
+                {/* Real photo */}
+                <Image
+                  src={project.photo}
+                  alt={project.alt}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
 
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-black/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                  <span className="text-[#C9A84C] text-[10px] tracking-[0.2em] uppercase font-semibold mb-2">
+                {/* Permanent dark bottom gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+
+                {/* Bottom label (always visible) */}
+                <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                  <span className="text-[#C9A84C] text-[10px] tracking-[0.2em] uppercase font-semibold">
                     {project.type}
                   </span>
-                  <h3 className="text-white font-semibold text-lg mb-2 leading-snug">
-                    {project.title}
-                  </h3>
-                  <div className="text-[#888880] text-sm mb-4">
-                    {project.area} · {project.material}
-                  </div>
-                  <div className="flex items-center gap-2 text-[#C9A84C] text-sm font-medium">
-                    <span>Детальніше</span>
-                    <ArrowRight size={15} />
+                  <h3 className="text-white font-semibold text-base mt-1">{project.title}</h3>
+
+                  {/* Details — visible on hover */}
+                  <div className="overflow-hidden max-h-0 group-hover:max-h-20 transition-all duration-300">
+                    <div className="text-[#888880] text-sm mt-1.5">
+                      {project.area} · {project.material}
+                    </div>
+                    <div className="flex items-center gap-2 text-[#C9A84C] text-sm font-medium mt-2">
+                      <span>Детальніше</span>
+                      <ArrowRight size={14} />
+                    </div>
                   </div>
                 </div>
               </motion.div>

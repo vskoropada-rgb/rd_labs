@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
+import SmoothScroll from "@/components/SmoothScroll";
+import CustomCursor from "@/components/CustomCursor";
 
 const geist = Geist({
   variable: "--font-geist-sans",
@@ -40,7 +42,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="uk" className={geist.variable}>
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className="min-h-screen antialiased cursor-none lg:cursor-none">
+        <CustomCursor />
+        <SmoothScroll>{children}</SmoothScroll>
+      </body>
     </html>
   );
 }
