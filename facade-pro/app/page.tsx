@@ -9,8 +9,12 @@ import Process from "@/components/Process";
 import Testimonials from "@/components/Testimonials";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
+import FloatingCTA from "@/components/FloatingCTA";
+import { getContent } from "@/lib/content";
 
-export default function Home() {
+export default async function Home() {
+  const content = await getContent();
+
   return (
     <main>
       <Header />
@@ -18,12 +22,13 @@ export default function Home() {
       <Services />
       <Stats />
       <WhyUs />
-      <Portfolio />
+      <Portfolio initialItems={content.portfolio} />
       <FacadeProcess />
       <Process />
       <Testimonials />
-      <ContactForm />
+      <ContactForm contact={content.contact} />
       <Footer />
+      <FloatingCTA phone={content.contact.phone} />
     </main>
   );
 }

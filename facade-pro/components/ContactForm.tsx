@@ -3,8 +3,9 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { Phone, MapPin, Mail, Send, Clock } from 'lucide-react'
+import type { ContactInfo } from '@/lib/content'
 
-export default function ContactForm() {
+export default function ContactForm({ contact }: { contact?: ContactInfo }) {
   const [form, setForm] = useState({ name: '', phone: '', message: '' })
   const [sent, setSent] = useState(false)
 
@@ -122,19 +123,19 @@ export default function ContactForm() {
                   {
                     icon: Phone,
                     label: 'Телефон',
-                    value: '+38 (000) 000-00-00',
-                    href: 'tel:+380000000000',
+                    value: contact?.phone || '+38 (000) 000-00-00',
+                    href: contact?.phone ? `tel:${contact.phone.replace(/\D/g, '+')}` : 'tel:+380000000000',
                   },
                   {
                     icon: Mail,
                     label: 'Email',
-                    value: 'info@sbdpro.ua',
-                    href: 'mailto:info@sbdpro.ua',
+                    value: contact?.email || 'info@sbdpro.ua',
+                    href: `mailto:${contact?.email || 'info@sbdpro.ua'}`,
                   },
                   {
                     icon: MapPin,
                     label: 'Адреса',
-                    value: 'м. Львів, вул. Боднарська, 14А',
+                    value: contact?.address || 'м. Львів, вул. Боднарська, 14А',
                     href: null,
                   },
                 ].map((item) => {
@@ -167,9 +168,9 @@ export default function ContactForm() {
               </div>
               <div className="space-y-2">
                 {[
-                  { day: 'Пн – Пт', time: '08:00 – 18:00' },
-                  { day: 'Субота', time: '09:00 – 15:00' },
-                  { day: 'Неділя', time: 'Вихідний' },
+                  { day: 'Пн – Пт', time: contact?.hours?.weekdays || '08:00 – 18:00' },
+                  { day: 'Субота', time: contact?.hours?.saturday || '09:00 – 15:00' },
+                  { day: 'Неділя', time: contact?.hours?.sunday || 'Вихідний' },
                 ].map((row) => (
                   <div key={row.day} className="flex justify-between text-sm">
                     <span className="text-[#888880]">{row.day}</span>

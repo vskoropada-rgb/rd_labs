@@ -4,12 +4,13 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
+import type { PortfolioItem } from '@/lib/content'
 
 const categories = ['Всі роботи', 'Приватні будинки', 'ЖК та ОСББ', 'Комерційні']
 
-const projects = [
+const defaultProjects: PortfolioItem[] = [
   {
-    id: 1,
+    id: '1',
     title: 'Котедж у Брюховичах',
     type: 'Приватні будинки',
     area: '380 м²',
@@ -18,7 +19,7 @@ const projects = [
     alt: 'Приватний будинок після утеплення фасаду',
   },
   {
-    id: 2,
+    id: '2',
     title: 'ЖК на вул. Шевченка',
     type: 'ЖК та ОСББ',
     area: '4 800 м²',
@@ -27,7 +28,7 @@ const projects = [
     alt: 'Утеплення фасаду житлового комплексу',
   },
   {
-    id: 3,
+    id: '3',
     title: 'Офісний центр',
     type: 'Комерційні',
     area: '1 200 м²',
@@ -36,7 +37,7 @@ const projects = [
     alt: 'Фасадні роботи на офісному центрі',
   },
   {
-    id: 4,
+    id: '4',
     title: 'Таунхаус у Сихові',
     type: 'Приватні будинки',
     area: '240 м²',
@@ -45,7 +46,7 @@ const projects = [
     alt: 'Утеплення таунхаусу — фасадні роботи',
   },
   {
-    id: 5,
+    id: '5',
     title: 'Багатоквартирний ЖК',
     type: 'ЖК та ОСББ',
     area: '6 200 м²',
@@ -54,7 +55,7 @@ const projects = [
     alt: 'Масштабне утеплення фасаду великого ЖК',
   },
   {
-    id: 6,
+    id: '6',
     title: 'Торговий центр',
     type: 'Комерційні',
     area: '800 м²',
@@ -64,7 +65,8 @@ const projects = [
   },
 ]
 
-export default function Portfolio() {
+export default function Portfolio({ initialItems }: { initialItems?: PortfolioItem[] }) {
+  const projects = initialItems ?? defaultProjects
   const [active, setActive] = useState('Всі роботи')
 
   const filtered =
